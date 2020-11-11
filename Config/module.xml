@@ -1,20 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module>
+<module xmlns="http://thelia.net/schema/dic/module"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://thelia.net/schema/dic/module http://thelia.net/schema/dic/module/module-2_2.xsd">
     <fullnamespace>Instagram\Instagram</fullnamespace>
     <descriptive locale="en_US">
         <title>Instagram for Thelia</title>
         <description>This module display your Instagram photos</description>
+        <!--
+        <subtitle></subtitle>
+        <description></description>
+        <postscriptum></postscriptum>
+        -->
     </descriptive>
     <descriptive locale="fr_FR">
         <title>Instagram pour Thelia</title>
         <description>Affiche les photos Instagram de votre compte</description>
     </descriptive>
-    <version>0.1</version>
-    <author>
+    <!-- <logo></logo> -->
+    <!--<images-folder>images</images-folder>-->
+    <languages>
+        <language>en_US</language>
+        <language>fr_FR</language>
+    </languages>
+    <version>1.0.0</version>
+    <authors>
+        <author>
         <name>Emmanuel Nurit</name>
         <email>enurit@openstudio.fr</email>
-    </author>
+        </author>
+    </authors>
     <type>classic</type>
-    <thelia>2.1.0</thelia>
-    <stability>alpha</stability>
+    <!--
+    module dependencies
+    <required>
+        <module version="&gt;=0.1">Front</module>
+        <module version="~1.0">HookCart</module>
+        <module version="&gt;0.2">HookSearch</module>
+    </required>
+    -->
+    <thelia>2.4.2</thelia>
+    <stability>other</stability>
+    <mandatory>0</mandatory>
+    <hidden>0</hidden>
 </module>

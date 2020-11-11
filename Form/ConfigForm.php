@@ -47,9 +47,6 @@ class ConfigForm extends BaseForm
             'access_token',
             'text',
             [
-                'constraints' => [
-                    new NotBlank()
-                ],
                 'label' => $translator->trans('access token', [], 'instagram'),
                 'label_attr' => array
                	(
@@ -62,20 +59,36 @@ class ConfigForm extends BaseForm
             'username',
             'text',
             [
+                'label' => $translator->trans('username', [], 'instagram'),
+                'data' => ConfigQuery::read('instagram_username')
+            ]
+        )
+        ->add(
+            'client_id',
+            'text',
+            [
                 'constraints' => [
                     new NotBlank()
                 ],
-                'label' => $translator->trans('username', [], 'instagram'),
-                'data' => ConfigQuery::read('instagram_username')
+                'label' => $translator->trans('client_id', [], 'instagram'),
+                'data' => ConfigQuery::read('instagram_client_id')
+            ]
+        )
+        ->add(
+            'client_secret',
+            'text',
+            [
+                'constraints' => [
+                    new NotBlank()
+                ],
+                'label' => $translator->trans('client_secret', [], 'instagram'),
+                'data' => ConfigQuery::read('instagram_client_secret')
             ]
         )
 		->add(
             'photos_quantity',
             'text',
             [
-                'constraints' => [
-                    new NotBlank()
-                ],
                 'label' => $translator->trans('photos quantity', [], 'instagram'),
                 'data' => ConfigQuery::read('instagram_photos_quantity')
             ]

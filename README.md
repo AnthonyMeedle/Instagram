@@ -25,6 +25,18 @@ In the configuration panel of this module, you can record your Access token, the
 ## How to retrieve my Access Token
 
 1. You have to connect to https://instagram.com/developer/ to create your application token.
-2. Make sure you have un checked the "Disable implicit OAuth" option
-3. Connect to https://instagram.com/oauth/authorize/?client_id=CLIENT-ID&redirect_uri=REDIRECT-URI&response_type=token and paste the token from the new URL : http://your-redirect-uri#access_token=ACESSTOKEN
+2. Ajouter un produit Instagram
+3. Remplissez la partie basic-display
+4. Dans le champ "Paramètres OAuth client" - "URI de redirection OAuth valides" rentrez une url spécifique fourni par le module
+5. Récupérez le client id et le client secret à sauvegarder dans ce module
+6. Si vous laissez votre application en mode test ajoutez le compte instagram voulu en compte test de l'application
+7. Cliquez sur le lien "Générer un nouveau token d'accès" qui est dans le module. 
 
+8. à suivre mettre en place un cron sur une url tous les mois pour rafraichir le token (qui est normalement valide 60 jours)
+
+## Loop
+{loop type="instagram" name="instagram" limit=8 width="578" height="578" resize_mode="crop"}
+<a href="{$URL}" title="" >
+	<img src="{$IMAGE_URL}" alt="{$ALT}" >
+</a>
+{/loop}
