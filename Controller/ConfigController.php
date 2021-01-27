@@ -41,6 +41,8 @@ class ConfigController extends BaseAdminController
         $form = new ConfigForm($this->getRequest());
         $configForm = $this->validateForm($form);
 		$username = $configForm->get('username')->getData();
+		$client_id = $configForm->get('client_id')->getData();
+		$client_secret = $configForm->get('client_secret')->getData();
 		$access_token = $configForm->get('access_token')->getData();
 		$photos_quantity = $configForm->get('photos_quantity')->getData();
 		$debug_mode = $configForm->get('debug_mode')->getData();
@@ -52,16 +54,20 @@ class ConfigController extends BaseAdminController
 
             ConfigQuery::write('instagram_access_token', $access_token, 1, 1);
             ConfigQuery::write('instagram_username', $username, 1, 1);
+            ConfigQuery::write('instagram_client_id', $client_id, 1, 1);
+            ConfigQuery::write('instagram_client_secret', $client_secret, 1, 1);
             ConfigQuery::write('instagram_photos_quantity', $photos_quantity, 1, 1);
             ConfigQuery::write("instagram_debug_mode", $debug_mode, false, true);
             
             $response = RedirectResponse::create(URL::getInstance()->absoluteUrl('/admin/module/Instagram'));
-            
+            /*
             if($username && $access_token){
 			    if(!extension_loaded('openssl')){ 
 				    $credentialError = 'This class requires the php extension open_ssl to work as the instagram api works with httpS.'; 
 				} else {
-		        	$shots = file_get_contents("https://api.instagram.com/v1/users/search?q=".$configForm->get('username')->getData()."&access_token=".$configForm->get('access_token')->getData()); 
+		        	//$shots = file_get_contents("https://api.instagram.com/v1/users/search?q=".$configForm->get('username')->getData()."&access_token=".$configForm->get('access_token')->getData()); 
+                    
+		        	$shots = file_get_contents("https://graph.instagram.com/me/media?fields=id,caption,media_url&access_token=".$configForm->get('access_token')->getData()); 
 					$query = json_decode($shots);
 		            if($query->meta->code!='200'){
 		                $credentialError = "Bad Instagram access token";
@@ -69,7 +75,7 @@ class ConfigController extends BaseAdminController
 				}
 				if (!empty($credentialError)) {  throw new CredentialValidationException($credentialError); }
 	        } 
-            
+            */
 
         } catch (CredentialValidationException $e) {
             $errorMessage = $e->getMessage();

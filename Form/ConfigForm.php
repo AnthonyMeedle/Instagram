@@ -47,6 +47,9 @@ class ConfigForm extends BaseForm
             'access_token',
             'text',
             [
+                'constraints' => [
+                    new NotBlank()
+                ],
                 'label' => $translator->trans('access token', [], 'instagram'),
                 'label_attr' => array
                	(

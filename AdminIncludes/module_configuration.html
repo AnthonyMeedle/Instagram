@@ -7,8 +7,10 @@
     </div>
 
     <div class="form-container">
-      <div class="col-md-12">
+      <div class="col-md-12"> 
 	    <p>{intl d='instagram.ai' l='## How to retrieve my Access Token ##' urloauth={url path="/module/Instagram/access"}}</p>
+		  <hr>
+	    <p>{intl d='instagram.ai' l='## How to refresh my Access Token ##' urlrefresh={url path="/module/instagram/token/refresh"}}</p>
         {form name="instagram.config"}
         {if $form_error_message}<div class="alert alert-danger">{$form_error_message}</div>{/if}
 
@@ -99,14 +101,21 @@
             {/form_field}
 *}
             <button type="submit" id="instagram-save" name="instagram_save" value="save" class="form-submit-button btn btn-sm btn-default" title="{intl d='instagram.ai' l='Save'}">{intl d='instagram.ai' l='Save'}</button>
-          </form>
-        {/form}
-      </div>
+			  
+			  
 		{if {config key="instagram_client_id"}}
 		<a href="https://api.instagram.com/oauth/authorize?client_id={config key="instagram_client_id"}&redirect_uri={url path="/module/Instagram/access"}&scope=user_profile,user_media&response_type=code" class="btn btn-primary right pull-right float-right">Générer un nouveau token d'accès</a>
 		 {/if}
+			  
+          </form>
+        {/form}
+      </div>
+		{if {config key="instagram_token_expire"}}<p class="right pull-right float-right mr-4" style="margin-right: 20px;">date de validité du token {config key="instagram_token_expire"}</p>{/if}
 		{loop type="instagram" name="instagram2" limit=1 debug=1 width="578" height="578" resize_mode="crop"}
-			{$RETOUR}
+<div class="col-md-12" style="margin-top:20px;">
+<pre>
+{$RETOUR nofilter}
+</pre></div>
 		{/loop}
     </div>
 

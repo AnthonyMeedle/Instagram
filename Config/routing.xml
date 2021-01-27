@@ -7,5 +7,19 @@
     <route id="instagram.config.save" path="/admin/module/Instagram/save" methods="POST">
         <default key="_controller">Instagram\Controller\ConfigController::saveAction</default>
     </route>
+    <route id="instagram.code.save" path="/module/Instagram/access" methods="GET">
+        <default key="_controller">Instagram\Controller\InstagramToken::saveCode</default>
+    </route>
+    
+    <route id="instagram.token.save" path="/module/Instagram/token" methods="POST">
+        <default key="_controller">Instagram\Controller\InstagramToken::saveToken</default>
+    </route>
+    <route id="instagram.token.refresh" path="/module/instagram/token/refresh" methods="GET">
+        <default key="_controller">Instagram\Controller\InstagramToken::refreshToken</default>
+    </route>
+    
+    <route id="instagram.token.get" path="/module/Instagram/token" methods="GET">
+        <default key="_controller">Instagram\Controller\InstagramToken::saveToken</default>
+    </route>
     
 </routes>

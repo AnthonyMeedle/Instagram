@@ -88,7 +88,7 @@ class InstagramToken extends BaseFrontController
     }
 	
 	public function refreshToken(){
-		$ch = curl_init('https://graph.instagram.com/refresh_access_token?grant_type=ig_refresh_token &access_token=' . ConfigQuery::read('instagram_access_token'));
+		$ch = curl_init('https://graph.instagram.com/refresh_access_token?grant_type=ig_refresh_token&access_token=' . ConfigQuery::read('instagram_access_token'));
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($ch, CURLOPT_HEADER, 0);
 		curl_setopt($ch, CURLOPT_POST, 0);
@@ -96,7 +96,7 @@ class InstagramToken extends BaseFrontController
 		$jsonRetourLongToken = json_decode($retourLongToken);
 		curl_close($ch);
 
-//			print_r($jsonRetourLongToken);
+		// print_r($jsonRetourLongToken);
 		$quand = new \dateTime('+ '. $jsonRetourLongToken->expires_in .'seconds');
 		ConfigQuery::write('instagram_access_token', $jsonRetourLongToken->access_token, 1, 1);
 		ConfigQuery::write('instagram_token_expire', $quand->format('Y-m-d'), 1, 1);

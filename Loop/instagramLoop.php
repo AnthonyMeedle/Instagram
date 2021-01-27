@@ -61,14 +61,49 @@ class instagramLoop extends BaseLoop implements PropelSearchLoopInterface{
     public function parseResults(LoopResult $loopResult){
 
         $access_token = ConfigQuery::read('instagram_access_token');
-
-        $shots = @file_get_contents("https://graph.instagram.com/me/media?fields=id,caption,media_type,media_url,permalink,thumbnail_url&access_token=". $access_token); 
+		$url = "https://graph.instagram.com/me/media?fields=id,caption,media_type,media_url,permalink,thumbnail_url&access_token=". $access_token;
+        $shots = @file_get_contents($url); 
         $query = json_decode($shots);
-		
+		$retour='';
 		if($this->getDebug()){
+
+				// create curl resource
+				$ch = curl_init();
+				// set url
+				curl_setopt($ch, CURLOPT_URL, $url);
+				//return the transfer as a string
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+				// $output contains the output string
+				$output = curl_exec($ch);
+				// close curl resource to free up system resources
+				curl_close($ch);      
+			$outputObj = json_decode($output);
+			
+			$retour .= $url . '<br>' . $shots . '<br>' . $output;
+			
+			if($outputObj->error->message) $retour = '<strong style="color:red">'. $outputObj->error->message .'</strong><br>' . $retour ; 
+			
+			
 		/*	 echo '<pre>';
+		
 			print_r($shots);
 			echo '</pre>'; */
+			
+			
+			$loopResultRow = new LoopResultRow();
+			$loopResultRow
+				->set('ID', '')
+				->set('CAPTION', '')
+				->set('ALT', '')
+				->set('MEDIA_TYPE', '')
+				->set('MEDIA_URL', '')
+				->set('URL', '')
+				->set('IMAGE_URL', '')
+				->set('IMAGE_ORIGINE', '')
+				->set('RETOUR', $retour)
+			;
+			$loopResult->addRow($loopResultRow);
+			
 		} 
 		
         $compteur=0;
@@ -151,6 +186,7 @@ class instagramLoop extends BaseLoop implements PropelSearchLoopInterface{
 				->set('URL', $info->permalink)
 				->set('IMAGE_URL', $image_url)
 				->set('IMAGE_ORIGINE', $image_origine)
+				->set('RETOUR', $retour)
 
 			;
 			$loopResult->addRow($loopResultRow);
